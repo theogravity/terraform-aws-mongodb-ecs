@@ -58,3 +58,15 @@ variable "subnet_id" {
   type        = string
   description = "Subnet id for container EC2 instance"
 }
+
+variable "instance_ssh_key_pair_name" {
+  type        = string
+  default     = null
+  description = "The key pair name to use to access the EC2 instance"
+}
+
+variable "instance_enable_public_ip" {
+  type        = bool
+  default     = false
+  description = "If true, assigns a public ip to the EC2 instance"
+}

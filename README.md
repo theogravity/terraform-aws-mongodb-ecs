@@ -89,6 +89,8 @@ Do [install](https://terragrunt.gruntwork.io/docs/getting-started/install/) it i
 | ebs_volume_size           | Size of EBS volume to be used by mongo container                       | number | `n/a`   | yes      |
 | ebs_volume_type           | Type of EBS volume to be used by mongo container                       | string | `n/a`   | yes      |
 | instance_type             | Type of EC2 instance to be used by ECS cluster for mongo task          | string | `n/a`   | yes      |
+| instance_ssh_key_pair_name| The key pair name to use to access the EC2 instance                    | string | `null`  | no       |
+| instance_enable_public_ip | If true, assigns a public ip to the EC2 instance                       | bool   | `false` | no       |
 | region                    | Region to be used for creating all the above resources                 | string | `n/a`   | yes      |
 | stage                     | Stage of the deployment                                                | string | `n/a`   | yes      |
 | mongo_container_cpu       | CPU capacity to be allocated for mongo container                       | number | `n/a`   | yes      |
