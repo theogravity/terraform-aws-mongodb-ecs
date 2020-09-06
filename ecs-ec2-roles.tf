@@ -59,6 +59,44 @@ resource "aws_iam_policy" "ecs-ebs-policy" {
 EOF
 }
 
+# enable session manager to allow IAM accounts to ssh into instances
+# https://medium.com/@dnorth98/hello-aws-session-manager-farewell-ssh-7fdfa4134696
+resource "aws_iam_policy" "ssm-ssh-tunnel-policy" {
+  name = "MongoSsmSshAccess"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SessionManagerStartSession",
+      "Effect": "Allow",
+      "Action": "ssm:StartSession",
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ssm:*::document/AWS-StartPortForwardingSession",
+        "arn:aws:ssm:*:*:document/AWS-StartSSHSession"
+      ]
+    },
+    {
+      "Sid": "SessionManagerPortForward",
+      "Effect": "Allow",
+      "Action": "ssm:StartSession",
+      "Resource": "arn:aws:ssm:*::document/AWS-StartPortForwardingSession"
+    },
+    {
+      "Sid": "SessionManagerTerminateSession",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:TerminateSession",
+        "ssm:ResumeSession"
+      ],
+      "Resource": "arn:aws:ssm:*:*:session/${aws:username}-*"
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_role_policy_attachment" "ecs-ec2-container-service-policy-attachement" {
   role       = aws_iam_role.ecs-ec2-role.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
@@ -73,3 +111,9 @@ resource "aws_iam_role_policy_attachment" "ecs-ec2-ebs-policy-attachment" {
   policy_arn = aws_iam_policy.ecs-ebs-policy.arn
   role       = aws_iam_role.ecs-ec2-role.id
 }
+
+resource "aws_iam_role_policy_attachment" "ecs-ec2-ssh-ssm-policy-attachment" {
+  policy_arn = aws_iam_policy.ssm-ssh-tunnel-policy.arn
+  role       = aws_iam_role.ecs-ec2-role.id
+}
+
