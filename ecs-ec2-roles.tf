@@ -63,38 +63,7 @@ EOF
 # https://medium.com/@dnorth98/hello-aws-session-manager-farewell-ssh-7fdfa4134696
 resource "aws_iam_policy" "ssm-ssh-tunnel-policy" {
   name = "MongoSsmSshAccess"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "SessionManagerStartSession",
-      "Effect": "Allow",
-      "Action": "ssm:StartSession",
-      "Resource": [
-        "arn:aws:ec2:*:*:instance/*",
-        "arn:aws:ssm:*::document/AWS-StartPortForwardingSession",
-        "arn:aws:ssm:*:*:document/AWS-StartSSHSession"
-      ]
-    },
-    {
-      "Sid": "SessionManagerPortForward",
-      "Effect": "Allow",
-      "Action": "ssm:StartSession",
-      "Resource": "arn:aws:ssm:*::document/AWS-StartPortForwardingSession"
-    },
-    {
-      "Sid": "SessionManagerTerminateSession",
-      "Effect": "Allow",
-      "Action": [
-        "ssm:TerminateSession",
-        "ssm:ResumeSession"
-      ],
-      "Resource": "arn:aws:ssm:*:*:session/${aws:username}-*"
-    }
-  ]
-}
-EOF
+  policy = file("./policies/ssh-ssm.json")
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-ec2-container-service-policy-attachement" {
