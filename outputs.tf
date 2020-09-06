@@ -7,6 +7,10 @@ output "mongo_instance_private_ip" {
   value = aws_instance.mongo-ecs-instance.private_ip
 }
 
+output "mongo_instance_id" {
+  value = aws_instance.mongo-ecs-instance.id
+}
+
 output "ecs_cluster_arn" {
   value = aws_ecs_cluster.mongo_ecs.arn
 }
