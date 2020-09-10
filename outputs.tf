@@ -24,9 +24,15 @@ output "ecs_cluster_region" {
 }
 
 output "ecs_ec2_role" {
-  value = aws_iam_role.ecs-ec2-role
+  value = {
+    name = aws_iam_role.ecs-ec2-role.name
+    arn = aws_iam_role.ecs-ec2-role.arn
+  }
 }
 
 output "iam_instance_profile" {
-  value = aws_iam_instance_profile.default
+  value = {
+    name = aws_iam_instance_profile.default.name
+    arn = aws_iam_instance_profile.default.arn
+  }
 }
