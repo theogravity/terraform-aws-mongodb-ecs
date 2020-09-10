@@ -23,10 +23,10 @@ output "ecs_cluster_region" {
   value = var.region
 }
 
-output "ecs_ec2_role_arn" {
-  value = aws_iam_role.ecs-ec2-role.arn
+output "ecs_ec2_role" {
+  value = aws_iam_role.ecs-ec2-role
 }
 
-output "iam_instance_profile_arn" {
-  value = aws_iam_instance_profile.default.arn
+output "iam_instance_profile" {
+  value = aws_iam_instance_profile.default
 }
