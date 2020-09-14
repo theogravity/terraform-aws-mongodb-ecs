@@ -24,7 +24,7 @@ EOF
 }
 
 resource "aws_iam_policy" "ecs-ebs-policy" {
-  name = "MongoEBSFullAccess"
+  name = "MongoEBSFullAccess-${var.name}"
 
   policy = <<EOF
 {
