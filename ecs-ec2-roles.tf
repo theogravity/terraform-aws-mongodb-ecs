@@ -62,7 +62,7 @@ EOF
 # enable session manager to allow IAM accounts to ssh into instances
 # https://medium.com/@dnorth98/hello-aws-session-manager-farewell-ssh-7fdfa4134696
 resource "aws_iam_policy" "ssm-ssh-tunnel-policy" {
-  name = "MongoSsmSshAccess"
+  name = "MongoSsmSshAccess-${var.name}"
   policy = file("${path.module}/policies/ssh-ssm.json")
 }
 
