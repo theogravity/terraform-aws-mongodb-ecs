@@ -34,6 +34,18 @@ variable "ebs_volume_size" {
   description = "Size of ebs volume"
 }
 
+variable "instance_volume_type" {
+  type        = string
+  description = "Type of EBS volume to be used for container storage"
+  default     = "standard"
+}
+
+variable "instance_volume_size" {
+  type        = number
+  description = "Size of ebs volume"
+  default     = 20
+}
+
 variable "mongo_container_cpu" {
   type        = number
   description = "CPU capacity required for mongo container ( 1024 == 1 cpu)"

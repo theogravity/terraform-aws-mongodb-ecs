@@ -18,6 +18,11 @@ resource "aws_instance" "mongo-ecs-instance" {
   key_name                    = var.instance_ssh_key_pair_name == "" ? null : var.instance_ssh_key_pair_name
   associate_public_ip_address = var.instance_enable_public_ip
   tags = var.tags
+
+  root_block_device {
+    volume_size = var.instance_volume_size
+    volume_type = var.instance_volume_type
+  }
 }
 
 data "template_file" "user-data" {
