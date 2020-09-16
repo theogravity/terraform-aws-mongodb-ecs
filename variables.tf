@@ -43,7 +43,7 @@ variable "instance_volume_type" {
 variable "instance_volume_size" {
   type        = number
   description = "Size of ebs volume"
-  default     = 20
+  default     = 30
 }
 
 variable "mongo_container_cpu" {
